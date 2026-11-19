@@ -16,3 +16,5 @@ for student in manager.students:
     print(student.name)
     print(student.roll_number)
     print(student.grade)
+
+manager.show_students()
