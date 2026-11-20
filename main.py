@@ -48,9 +48,6 @@ while True:
             continue
         grade = input("შეიყვანეთ სტუდენტის ახალი შეფასება: ").strip().upper()
 
-        if len(grade) != 1 or not grade.isalpha():
-            print("შეფასება უნდა იყოს ერთი ასო")
-            continue
         try:
             manager.update_grade(roll_number, grade)
         except ValueError as error:

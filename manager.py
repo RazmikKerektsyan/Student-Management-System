@@ -1,5 +1,3 @@
-from hmac import new
-
 from student import Student
 class StudentManager:
     def __init__(self):
