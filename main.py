@@ -1,20 +1,62 @@
-from student import Student
 from manager import StudentManager
-s1 = Student("gajo", 2, "A")
-s2 = Student("gerg", 3, "B")
-s3 = Student("james", 4, "C")
-# print(s1.name, s1.roll_number, s1.grade)
-# print(s2.name, s2.roll_number, s2.grade)
-# print(s3.name, s3.roll_number, s3.grade)
-
 
 manager = StudentManager()
-manager.add_student("Razmik", 1, "A")
-manager.add_student("Bob", 2, "B")
+while True:
+    print("\n1. Add student")
+    print("2. View student")
+    print("3. Search student")
+    print("4. Update grade")
+    print("5. Exit")
+    try:
+        choice = int(input("აირჩიეთ მოქმედება: "))
+    except ValueError:
+        print("გთხოვთ, შეიყვანოთ რიცხვი")
+        continue
+    if choice == 1:
+        name = input("შეიყვანეთ სტუდენტის სახელი: ").strip()
+        if not name:
+            print("სახელი არ უნდა იყოს ცარიელი")
+            continue
+        try:
+            roll_number = int(input("შეიყვანეთ სტუდენტის ნომერი: "))
+        except ValueError:
+            print("გთხოვთ, შეიყვანოთ რიცხვი")
+            continue
+        if roll_number <= 0:
+            print("ნომერი უნდა იყოს დადებითი")
+            continue
+        grade = input("შეიყვანეთ სტუდენტის შეფასება: ")
+        try:
+            manager.add_student(name, roll_number, grade)
+        except ValueError as error:
+            print(error)
+            continue
+    elif choice == 2:
+        manager.show_students()
+    elif choice == 3:
+        try:
+            roll_number = int(input("მოძებნეთ სტუდენტის ნომრით: "))
+        except ValueError:
+            print("გთხოვთ, შეიყვანოთ რიცხვი")
+            continue
+        manager.search_student(roll_number)
+    elif choice == 4:
+        try:
+            roll_number = int(input("შეიყვანეთ სტუდენტის ნომერი: "))
+        except ValueError:
+            print("გთხოვთ, შეიყვანოთ რიცხვი")
+            continue
+        grade = input("შეიყვანეთ სტუდენტის ახალი შეფასება: ").strip().upper()
 
-for student in manager.students:
-    print(student.name)
-    print(student.roll_number)
-    print(student.grade)
-
-manager.show_students()
+        if len(grade) != 1 or not grade.isalpha():
+            print("შეფასება უნდა იყოს ერთი ასო")
+            continue
+        try:
+            manager.update_grade(roll_number, grade)
+        except ValueError as error:
+            print(error)
+            continue
+    elif choice == 5:
+        break
+    else:
+        print("არასწორი არჩევანი")
